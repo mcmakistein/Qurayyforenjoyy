@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90s 3D Multiplayer Game</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            text-shadow: 2px 2px #000000;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        #instructions {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 24px;
+            text-shadow: 2px 2px #000000;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login-screen">
+        <div class="login-card">
+            <h1>90s PARCOUR</h1>
+            <input type="text" id="username-input" placeholder="Enter Username" maxlength="12">
+            <button id="start-btn">START GAME</button>
+        </div>
+    </div>
+    <div id="error-console"
+        style="position:fixed; top:0; left:0; background:rgba(0,0,0,0.8); color:red; z-index:9999; width:100%; white-space:pre-wrap; display:none;">
+    </div>
+    <script>
+        window.onerror = function (msg, url, line, col, error) {
+            const div = document.getElementById('error-console');
+            div.style.display = 'block';
+            div.innerHTML += `Error: ${msg}\nAt: ${url}:${line}:${col}\nStack: ${error ? error.stack : 'N/A'}\n\n`;
+            return false;
+        };
+        // Also catch unhandled promise rejections
+        window.addEventListener('unhandledrejection', function (event) {
+            const div = document.getElementById('error-console');
+            div.style.display = 'block';
+            div.innerHTML += `Promise Rejection: ${event.reason}\n\n`;
+        });
+    </script>
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Dependencies for FBXLoader -->
+    <script src="js/libs/fflate.js"></script>
+    <script src="js/loaders/FBXLoader.js"></script>
+    <script src="js/loaders/GLTFLoader.js"></script>
+    <!-- Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Game Login -->
+    <script src="game.js"></script>
+</body>
+
+</html>
